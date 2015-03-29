@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!DOCTYPE html>
+<html lang="ja-JP" xml:lang="ja-JP" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+  <meta charset="utf-8" />
+  
+  <title>jQuery.SyntaxHighlighter.js</title>
+  
+  <link rel="stylesheet" type="text/css" href="http://alexgorbatchev.com/pub/sh/current/styles/shCore.css"/>
+  <link rel="stylesheet" type="text/css" href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeEclipse.css"/>
+  
+  <style type="text/css">
+    .syntaxhighlighter {
+      border: thin solid black;
+    }
+  </style>
+</head>
+<body>
+  <code>
+  <pre class="sh">
+// http://www.example.com
+
+namespace SyntaxHighlighter
+{
+  public static class Program
+  {
+    static void Main()
+    {
+      Console.WriteLine("Hello, World.");
+    }
+  }
+}
+  </pre>
+  </code>
+  
+  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="jQuery.SyntaxHighlighter.js"></script>
+
+  <script type="text/javascript" src="http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js"></script>
+  <script type="text/javascript" src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushCSharp.js"></script>
+  <script type="text/javascript">
+    SyntaxHighlighter.config.space = '&#x20;';
+  </script>
+  
+  <script type="text/javascript">
+    $(function () {
+      $(".sh").SyntaxHighlight("csharp", {
+        autoLinks: false,
+        highlight: [7, 8, 9, 10],
+        toolbar: false,
+        quickCode: false
+      });
+    });
+  </script>
+</body>
+</html>
+

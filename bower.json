@@ -1,0 +1,31 @@
+{
+  "name": "jQuery.SyntaxHighlighter",
+  "description": "jQuery plugin for Alex Gorbatchev's SyntaxHighlighter",
+  "version": "0.1.0",
+  "authors": [
+    "aetos"
+  ],
+  "license": "MS-PL",
+  "main": "jQuery.SyntaxHighlighter.js",
+  "keywords": [
+    "jquery-plugin"
+  ],
+  "moduleType": [
+    "amd",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3"
+  },
+  "devDependencies": {
+    "requirejs": "~2.1.16"
+  },
+  "homepage": "https://github.com/aetos382/jQuery.SyntaxHighlighter"
+}
