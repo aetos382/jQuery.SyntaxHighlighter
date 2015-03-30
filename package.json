@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "author": "aetos",
   "license": "MS-PL",
-  "main": "jQuery.SyntaxHighlighter.js",
+  "main": "dist/jQuery.SyntaxHighlighter.js",
   "keywords": [
     "jquery-plugin"
   ],

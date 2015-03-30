@@ -40,9 +40,9 @@ namespace SyntaxHighlighter
     SyntaxHighlighter.config.space = '&#x20;';
   </script>
   
-	<!-- pattern 1 (global) -->
+  <!-- pattern 1 (global) -->
   <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-  <script type="text/javascript" src="jQuery.SyntaxHighlighter.js"></script>
+  <script type="text/javascript" src="dist/jQuery.SyntaxHighlighter.js"></script>
   <script type="text/javascript">
     $(function () {
       $(".sh").SyntaxHighlight("csharp", {
@@ -54,35 +54,35 @@ namespace SyntaxHighlighter
     });
   </script>
   
-  <!-- pattern 2 (amd) -->
+  <!-- pattern 2 (amd/requirejs) -->
   <!--
   <script type="text/javascript" src="node_modules/requirejs/require.js"></script>
   <script type="text/javascript">
-  	require.config({
-  		paths: {
-  			jquery: 'node_modules/jquery/dist/jquery',
-  			jqsh: 'jQuery.SyntaxHighlighter'
-  		}
-  	});
-  	
-  	require([
-  		'jquery', 'jqsh'
-  	], function ($, _) {
-	    $(function () {
-	      $(".sh").SyntaxHighlight("csharp", {
-	        autoLinks: false,
-	        highlight: [7, 8, 9, 10],
-	        toolbar: false,
-	        quickCode: false
-	      });
-	    });
-  	});
+    require.config({
+      paths: {
+        jquery: 'node_modules/jquery/dist/jquery',
+        jqsh: 'dist/jQuery.SyntaxHighlighter'
+      }
+    });
+    
+    require([
+      'jquery', 'jqsh'
+    ], function ($, _) {
+      $(function () {
+        $(".sh").SyntaxHighlight("csharp", {
+          autoLinks: false,
+          highlight: [7, 8, 9, 10],
+          toolbar: false,
+          quickCode: false
+        });
+      });
+    });
   </script>
-	-->
-	
-	<!-- pattern 3 (commonjs/browserify) -->
-	<!--
-	<script type="text/javascript" src="browserified.js"></script>
-	-->
+  -->
+  
+  <!-- pattern 3 (commonjs/browserify) -->
+  <!--
+  <script type="text/javascript" src="browserified.js"></script>
+  -->
 </body>
 </html>

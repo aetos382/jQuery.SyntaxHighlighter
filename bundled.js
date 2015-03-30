@@ -1,5 +1,5 @@
 var $ = require('jquery');
-var jqsh = require('./jQuery.SyntaxHighlighter');
+var jqsh = require('./dist/jQuery.SyntaxHighlighter');
 
 $(function () {
   $(".sh").SyntaxHighlight("csharp", {
