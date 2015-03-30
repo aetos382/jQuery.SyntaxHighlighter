@@ -9,39 +9,39 @@ module JQuerySyntaxHighlighter {
     declare var SyntaxHighlighter: sh;
     
     export interface Configuration {
-        autoLinks:    boolean;
-        className:    string;
-        collapse:    boolean;
-        firstLine:    number;
-        gutter:        boolean;
-        highlight:    number[];
-        htmlScript:    boolean;
-        light:        boolean;
-        padLineNumbers:    boolean | number;
-        quickCode:    boolean;
-        smartTabs:    boolean;
-        tabSize:    number;
-        title:        string;
-        toolbar:    boolean;
+        autoLinks:      boolean;
+        className:      string;
+        collapse:       boolean;
+        firstLine:      number;
+        gutter:         boolean;
+        highlight:      number[];
+        htmlScript:     boolean;
+        light:          boolean;
+        padLineNumbers: boolean | number;
+        quickCode:      boolean;
+        smartTabs:      boolean;
+        tabSize:        number;
+        title:          string;
+        toolbar:        boolean;
     }
     
     export class Highlighter {
         
         private static options = {
-            autoLinks: "auto-links",
-            className: "class-name",
-            collapse: "collapse",
-            firstLine: "first-line",
-            gutter: "gutter",
-            highlight: (value: number[]): string => "highlight:[" + value.join(",") + "]",
-            htmlScript: "html-script",
-            light: "light",
+            autoLinks:      "auto-links",
+            className:      "class-name",
+            collapse:       "collapse",
+            firstLine:      "first-line",
+            gutter:         "gutter",
+            highlight:      (value: number[]): string => "highlight:[" + value.join(",") + "]",
+            htmlScript:     "html-script",
+            light:          "light",
             padLineNumbers: "pad-line-numbers",
-            quickCode: "quick-code",
-            smartTabs: "smart-tabs",
-            tabSize: "tab-size",
-            title: "title",
-            toolbar: "toolbar"
+            quickCode:      "quick-code",
+            smartTabs:      "smart-tabs",
+            tabSize:        "tab-size",
+            title:          "title",
+            toolbar:        "toolbar"
         };
         
         private element: JQuery;
