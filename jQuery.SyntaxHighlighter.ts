@@ -101,8 +101,8 @@ module JQuerySyntaxHighlighter {
         }
     }
     
-    (function ($: JQueryStatic) {
-       
+    (($: JQueryStatic): void => {
+        
         function highlight(brush: string, config: Configuration, autoHighlight: boolean): any {
             
             return this.each((index: number, element: Element) => {
