@@ -131,8 +131,7 @@ module JQuerySyntaxHighlighter {
     }
     
     declare var require: {
-        (id: string): any; // commonjs
-    	(modules: string[], ready: Function): void; // amd
+        (id: string): any;
     };
     
     (function (factory: ($: JQueryStatic) => void): void {
