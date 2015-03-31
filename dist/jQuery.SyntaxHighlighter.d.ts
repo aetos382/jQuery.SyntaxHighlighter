@@ -29,4 +29,5 @@ declare module JQuerySyntaxHighlighter {
         static HighlightElement(element: JQuery, brush: string, config: Configuration, autoHighlight: boolean): void;
         private getClasses();
     }
+    function loadModule(root: any, factory: ($: JQueryStatic) => (element: JQuery, brush: string, config: Configuration, autoHighlight: boolean) => void): void;
 }

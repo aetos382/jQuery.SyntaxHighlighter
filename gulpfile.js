@@ -18,7 +18,7 @@ gulp.task('compile', function () {
         }));
     
     var js = ts.js
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('./dist'));
         

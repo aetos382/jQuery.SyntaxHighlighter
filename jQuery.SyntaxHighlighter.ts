@@ -63,10 +63,14 @@ module JQuerySyntaxHighlighter {
             
             Highlighter.$ = $;
             
-            $.fn.SyntaxHighlight = function (brush: string, config: Configuration, autoHighlight: boolean): any {
+            $.fn.SyntaxHighlight = function (brush: string, config: JQuerySyntaxHighlighter.Configuration, autoHighlight: boolean): any {
+                
                 return this.each((index: number, element: Element) => {
+                    
                     Highlighter.HighlightElement($(element), brush, config, autoHighlight);
+                    
                 });
+                
             };
             
         }
@@ -125,33 +129,49 @@ module JQuerySyntaxHighlighter {
         exports: any;
     };
     
+    declare var exports: any;
+    
     declare var define: {
     	(deps: string[], ready: ((...objects: any[]) => void)): void;
     	amd: Object;
     }
     
     declare var require: {
-        (id: string): any;
+        (id: string): any; // commonjs
+    	(modules: string[], ready: Function): void; // amd
     };
     
-    (function (factory: ($: JQueryStatic) => void): void {
+    export function loadModule(root: any, factory: ($: JQueryStatic) => (element: JQuery, brush: string, config: Configuration, autoHighlight: boolean) => void): void {
+        
+        var $_: JQueryStatic;
         
         if (typeof module == "object" && typeof module.exports == "object") {
-            factory(require("jquery"));
+            $_ = require("jquery");
+            module.exports = factory($_);
+        }
+        else if (typeof exports == "object") {
+            $_ = require("jquery");
+            exports.SyntaxHighlight = factory($_);
         }
         else if (typeof define == "function" && define.amd) {
             define(["jquery"], ($: JQueryStatic) => {
-                factory($);
+                $_ = $;
+                root.SyntaxHighlight = factory($);
+                return root.SyntaxHighlight;
             });
         }
         else {
-            factory(jQuery);
+            $_ = jQuery;
+            root.SyntaxHighlight = factory(jQuery);
         }
         
-    })(($: JQueryStatic): void => {
-        
         Highlighter.Setup($);
-        
-    });
+    }
 
 }
+
+JQuerySyntaxHighlighter.loadModule(this, ($: JQueryStatic): ((element: JQuery, brush: string, config: JQuerySyntaxHighlighter.Configuration, autoHighlight: boolean) => void) => {
+    
+    return JQuerySyntaxHighlighter.Highlighter.HighlightElement;
+    
+});
