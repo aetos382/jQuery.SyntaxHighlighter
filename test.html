@@ -40,7 +40,7 @@ namespace SyntaxHighlighter
     SyntaxHighlighter.config.space = '&#x20;';
   </script>
   
-  <!-- pattern 1 (global) -->
+  <!-- pattern 1 (global/jquery plugin) -->
   <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
   <script type="text/javascript" src="dist/jQuery.SyntaxHighlighter.js"></script>
   <script type="text/javascript">
@@ -54,7 +54,37 @@ namespace SyntaxHighlighter
     });
   </script>
   
-  <!-- pattern 2 (amd/requirejs) -->
+  <!-- pattern 2 (global/function) -->
+  <!--
+  <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="dist/jQuery.SyntaxHighlighter.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $(".sh").each(function() {
+        JQuerySyntaxHighlighter.Highlighter.HighlightElement($(this), "csharp", {
+          autoLinks: false,
+          highlight: [7, 8, 9, 10],
+          toolbar: false,
+          quickCode: false
+        });
+        
+        // It's also possible as follows.
+        /*
+        var highlighter = new JQuerySyntaxHighlighter.Highlighter($(this), "csharp", {
+          autoLinks: false,
+          highlight: [7, 8, 9, 10],
+          toolbar: false,
+          quickCode: false
+        });
+        
+        highlighter.HighlightElement();
+        */
+      });
+    });
+  </script>
+  -->
+  
+  <!-- pattern 3 (amd/requirejs) -->
   <!--
   <script type="text/javascript" src="node_modules/requirejs/require.js"></script>
   <script type="text/javascript">
@@ -80,7 +110,7 @@ namespace SyntaxHighlighter
   </script>
   -->
   
-  <!-- pattern 3 (commonjs/browserify) -->
+  <!-- pattern 4 (commonjs/browserify) -->
   <!--
   <script type="text/javascript" src="browserified.js"></script>
   -->

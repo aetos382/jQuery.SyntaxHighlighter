@@ -44,6 +44,7 @@ module JQuerySyntaxHighlighter {
             toolbar:        "toolbar"
         };
         
+        public static $: JQueryStatic;
         private element: JQuery;
         private brush: string;
         private config: Configuration;
@@ -63,7 +64,7 @@ module JQuerySyntaxHighlighter {
             var classes = this.getClasses();
             classes.unshift("brush:" + this.brush);
             
-            $.each(classes, (index: number, value: string) => this.element.addClass(value));
+            Highlighter.$.each(classes, (index: number, value: string) => this.element.addClass(value));
             
             if (this.autoHighlight) {
                 SyntaxHighlighter.highlight(null, this.element[0]);
@@ -71,11 +72,18 @@ module JQuerySyntaxHighlighter {
             
         }
         
+        public static HighlightElement(element: JQuery, brush: string, config: Configuration, autoHighlight: boolean): void {
+            
+            var highlighter = new Highlighter($(element), brush, config, autoHighlight);
+            highlighter.HighlightElement();
+            
+        }
+        
         private getClasses(): string[] {
             
             var classes: string[] = [];
             
-            $.each(this.config, (name: string, value: string | ((JQuery) => string)) => {
+            Highlighter.$.each(this.config, (name: string, value: string | ((JQuery) => string)) => {
                 var x = Highlighter.options[name];
                 var c: string;
                 
@@ -101,21 +109,48 @@ module JQuerySyntaxHighlighter {
         }
     }
     
-    (($: JQueryStatic): void => {
+    declare var module: {
+        exports: any;
+    };
+    
+    declare var define: {
+    	(deps: string[], ready: ((...objects: any[]) => void)): void;
+    	amd: Object;
+    }
+    
+    declare var require: {
+        (id: string): any; // commonjs
+    	(modules: string[], ready: Function): void; // amd
+    };
+    
+    (function (factory: ($: JQueryStatic) => void): void {
         
-        function highlight(brush: string, config: Configuration, autoHighlight: boolean): any {
+        if (typeof module == "object" && typeof module.exports == "object") {
+            factory(require("jquery"));
+        }
+        else if (typeof define == "function" && define.amd) {
+            define(["jquery"], ($: JQueryStatic) => {
+                factory($);
+            });
+        }
+        else {
+            factory(jQuery);
+        }
+        
+    })(($: JQueryStatic): void => {
+        
+        Highlighter.$ = $;
+        
+        $.fn.SyntaxHighlight = function (brush: string, config: JQuerySyntaxHighlighter.Configuration, autoHighlight: boolean): any {
             
             return this.each((index: number, element: Element) => {
                 
-                var highlighter = new Highlighter($(element), brush, config, autoHighlight);
-                highlighter.HighlightElement();
+                Highlighter.HighlightElement($(element), brush, config, autoHighlight);
                 
             });
             
         };
         
-        $.fn.SyntaxHighlight = highlight;
-
-    })($);
+    });
 
 }

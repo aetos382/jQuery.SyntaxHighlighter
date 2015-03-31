@@ -3,15 +3,12 @@ var tsc = require('gulp-typescript');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var merge = require('merge2');
-var wrap = require('gulp-wrap-js');
 var fs = require('fs');
 
 var browserify = require('gulp-browserify');
 var rename = require('gulp-rename');
 
 gulp.task('compile', function () {
-    
-    var template = fs.readFileSync('template.js', { encoding: 'utf-8' });
     
     var ts = gulp
         .src('jQuery.SyntaxHighlighter.ts')
@@ -21,7 +18,6 @@ gulp.task('compile', function () {
         }));
     
     var js = ts.js
-        .pipe(wrap(template))
         .pipe(uglify())
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('./dist'));
