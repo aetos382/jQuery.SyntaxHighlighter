@@ -44,7 +44,7 @@ module JQuerySyntaxHighlighter {
             toolbar:        "toolbar"
         };
         
-        public static $: JQueryStatic;
+        private static $: JQueryStatic;
         private element: JQuery;
         private brush: string;
         private config: Configuration;
@@ -56,6 +56,18 @@ module JQuerySyntaxHighlighter {
             this.brush = brush;
             this.config = config;
             this.autoHighlight = (autoHighlight == undefined ? true : autoHighlight);
+            
+        }
+        
+        public static Setup($: JQueryStatic): void {
+            
+            Highlighter.$ = $;
+            
+            $.fn.SyntaxHighlight = function (brush: string, config: Configuration, autoHighlight: boolean): any {
+                return this.each((index: number, element: Element) => {
+                    Highlighter.HighlightElement($(element), brush, config, autoHighlight);
+                });
+            };
             
         }
         
@@ -139,17 +151,7 @@ module JQuerySyntaxHighlighter {
         
     })(($: JQueryStatic): void => {
         
-        Highlighter.$ = $;
-        
-        $.fn.SyntaxHighlight = function (brush: string, config: JQuerySyntaxHighlighter.Configuration, autoHighlight: boolean): any {
-            
-            return this.each((index: number, element: Element) => {
-                
-                Highlighter.HighlightElement($(element), brush, config, autoHighlight);
-                
-            });
-            
-        };
+        Highlighter.Setup($);
         
     });
 

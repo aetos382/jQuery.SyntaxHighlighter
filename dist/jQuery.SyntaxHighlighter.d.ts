@@ -18,12 +18,13 @@ declare module JQuerySyntaxHighlighter {
     }
     class Highlighter {
         private static options;
-        static $: JQueryStatic;
+        private static $;
         private element;
         private brush;
         private config;
         private autoHighlight;
         constructor(element: JQuery, brush: string, config: Configuration, autoHighlight: boolean);
+        static Setup($: JQueryStatic): void;
         HighlightElement(): void;
         static HighlightElement(element: JQuery, brush: string, config: Configuration, autoHighlight: boolean): void;
         private getClasses();
