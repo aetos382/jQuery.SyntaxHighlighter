@@ -1,32 +1,44 @@
 var gulp = require('gulp');
-var tsc = require('gulp-typescript');
-var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
-var merge = require('merge2');
 var fs = require('fs');
+var sourcemaps = require('gulp-sourcemaps');
+var tsc = require('gulp-typescript');
+var wrap = require('gulp-wrap-js');
+var uglify = require('gulp-uglify');
+var merge = require('merge2');
 
 var browserify = require('gulp-browserify');
 var rename = require('gulp-rename');
 
-gulp.task('compile', function () {
+gulp.task('compile', function (callback) {
     
-    var ts = gulp
-        .src('jQuery.SyntaxHighlighter.ts')
-        .pipe(sourcemaps.init())
-        .pipe(tsc({
-            declarationFiles: true
-        }));
+    fs.readFile('template.js', { encoding: 'utf-8' }, function (error, data) {
     
-    var js = ts.js
-        //.pipe(uglify())
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('./dist'));
-        
-    var dts = ts.dts
-        .pipe(gulp.dest('./dist'));
-    
-    return merge([js, dts]);
-    
+	    if (error) {
+	    	callback(error);
+	    	return;
+	    }
+	    
+	    var ts = gulp
+	        .src('jQuery.SyntaxHighlighter.ts')
+	        .pipe(sourcemaps.init())
+	        .pipe(tsc({
+	            declarationFiles: true
+	        }));
+	    
+	    var js = ts.js
+	        .pipe(wrap(data))
+	        .pipe(uglify())
+	        .pipe(sourcemaps.write('.'))
+	        .pipe(gulp.dest('./dist'));
+	        
+	    var dts = ts.dts
+	        .pipe(gulp.dest('./dist'));
+	    
+	    merge([js, dts]);
+	    callback();
+	    
+	});
+	
 });
 
 gulp.task('browserify', ['compile'], function () {
