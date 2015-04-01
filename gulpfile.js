@@ -30,7 +30,9 @@ gulp.task("compile", function (callback) {
 	    
 	    var js = ts.js
 	        .pipe(wrap(data))
+	        .pipe(gulp.dest("dist"))
 	        .pipe(uglify())
+	        .pipe(rename("jQuery.SyntaxHighlighter.min.js"))
 	    	.pipe(sourcemaps.write("."))
 	        .pipe(gulp.dest("dist"));
 	        

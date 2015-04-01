@@ -1,2 +1,101 @@
-!function(t,i){if("object"==typeof module&&"object"==typeof module.exports){var e=i(require("jquery"));module.exports=function(){e.HighlightElement}}else if("object"==typeof exports){var e=i(require("jquery"));exports.SyntaxHighlight=e.HighlightElement}else if("function"==typeof define&&define.amd)define(["jquery"],function(t){var e=i(t);return function(){e.HighlightElement}});else{var e=i(jQuery);t.SyntaxHighlight=e.HighlightElement}}(this,function(t){var i;return function(i){var e=function(){function i(t,i,e,n){this.element=t,this.brush=i,this.config=e,this.autoHighlight=void 0==n?!0:n}return i.Setup=function(t){i.$=t,t.fn.SyntaxHighlight=function(e,n,h){return this.each(function(o,l){i.HighlightElement(t(l),e,n,h)})}},i.HighlightElement=function(e,n,h,o){var l=new i(t(e),n,h,o);l.HighlightElement()},i.prototype.HighlightElement=function(){var t=this,e=this.getClasses();e.unshift("brush:"+this.brush),i.$.each(e,function(i,e){return t.element.addClass(e)}),this.autoHighlight&&SyntaxHighlighter.highlight(null,this.element[0])},i.prototype.getClasses=function(){var t=this,e=[];return i.$.each(this.config,function(n,h){var o,l=i.options[n];o=void 0==l?"function"==typeof h?h(t.element):n+":"+h:"function"==typeof l?l(h):l+":"+h,e.push(o)}),e},i.options={autoLinks:"auto-links",className:"class-name",collapse:"collapse",firstLine:"first-line",gutter:"gutter",highlight:function(t){return"highlight:["+t.join(",")+"]"},htmlScript:"html-script",light:"light",padLineNumbers:"pad-line-numbers",quickCode:"quick-code",smartTabs:"smart-tabs",tabSize:"tab-size",title:"title",toolbar:"toolbar"},i}();i.Highlighter=e}(i||(i={})),i.Highlighter.Setup(t),i.Highlighter});
-//# sourceMappingURL=jQuery.SyntaxHighlighter.js.map
+(function (root, factory) {
+    if (typeof module == 'object' && typeof module.exports == 'object') {
+        var highlighter = factory(require('jquery'));
+        module.exports = function () {
+            SyntaxHighlight:
+                highlighter.HighlightElement;
+        };
+    } else if (typeof exports == 'object') {
+        var highlighter = factory(require('jquery'));
+        exports.SyntaxHighlight = highlighter.HighlightElement;
+    } else if (typeof define == 'function' && define.amd) {
+        define(['jquery'], function ($) {
+            var highlighter = factory($);
+            return function () {
+                SyntaxHighlight:
+                    highlighter.HighlightElement;
+            };
+        });
+    } else {
+        var highlighter = factory(jQuery);
+        root.SyntaxHighlight = highlighter.HighlightElement;
+    }
+}(this, function ($) {
+    var JQuerySyntaxHighlighter;
+    (function (JQuerySyntaxHighlighter) {
+        var Highlighter = function () {
+            function Highlighter(element, brush, config, autoHighlight) {
+                this.element = element;
+                this.brush = brush;
+                this.config = config;
+                this.autoHighlight = autoHighlight == undefined ? true : autoHighlight;
+            }
+            Highlighter.Setup = function ($) {
+                Highlighter.$ = $;
+                $.fn.SyntaxHighlight = function (brush, config, autoHighlight) {
+                    return this.each(function (index, element) {
+                        Highlighter.HighlightElement($(element), brush, config, autoHighlight);
+                    });
+                };
+            };
+            Highlighter.HighlightElement = function (element, brush, config, autoHighlight) {
+                var highlighter = new Highlighter($(element), brush, config, autoHighlight);
+                highlighter.HighlightElement();
+            };
+            Highlighter.prototype.HighlightElement = function () {
+                var _this = this;
+                var classes = this.getClasses();
+                classes.unshift('brush:' + this.brush);
+                Highlighter.$.each(classes, function (index, value) {
+                    return _this.element.addClass(value);
+                });
+                if (this.autoHighlight) {
+                    SyntaxHighlighter.highlight(null, this.element[0]);
+                }
+            };
+            Highlighter.prototype.getClasses = function () {
+                var _this = this;
+                var classes = [];
+                Highlighter.$.each(this.config, function (name, value) {
+                    var x = Highlighter.options[name];
+                    var c;
+                    if (x == undefined) {
+                        if (typeof value == 'function') {
+                            c = value(_this.element);
+                        } else {
+                            c = name + ':' + value;
+                        }
+                    } else if (typeof x == 'function') {
+                        c = x(value);
+                    } else {
+                        c = x + ':' + value;
+                    }
+                    classes.push(c);
+                });
+                return classes;
+            };
+            Highlighter.options = {
+                autoLinks: 'auto-links',
+                className: 'class-name',
+                collapse: 'collapse',
+                firstLine: 'first-line',
+                gutter: 'gutter',
+                highlight: function (value) {
+                    return 'highlight:[' + value.join(',') + ']';
+                },
+                htmlScript: 'html-script',
+                light: 'light',
+                padLineNumbers: 'pad-line-numbers',
+                quickCode: 'quick-code',
+                smartTabs: 'smart-tabs',
+                tabSize: 'tab-size',
+                title: 'title',
+                toolbar: 'toolbar'
+            };
+            return Highlighter;
+        }();
+        JQuerySyntaxHighlighter.Highlighter = Highlighter;
+    }(JQuerySyntaxHighlighter || (JQuerySyntaxHighlighter = {})));
+    JQuerySyntaxHighlighter.Highlighter.Setup($);
+    return JQuerySyntaxHighlighter.Highlighter;
+}));
