@@ -25,9 +25,9 @@ module JQuerySyntaxHighlighter {
         toolbar:        boolean;
     }
     
-    class Highlighter {
+    export class Highlighter {
         
-        static options = {
+        private static options = {
             autoLinks:      "auto-links",
             className:      "class-name",
             collapse:       "collapse",
@@ -44,11 +44,11 @@ module JQuerySyntaxHighlighter {
             toolbar:        "toolbar"
         };
         
-        static $: JQueryStatic;
-        element: JQuery;
-        brush: string;
-        config: Configuration;
-        autoHighlight: boolean;
+        private static $: JQueryStatic;
+        private element: JQuery;
+        private brush: string;
+        private config: Configuration;
+        private autoHighlight: boolean;
         
         constructor(element: JQuery, brush: string, config: Configuration, autoHighlight: boolean) {
             
@@ -59,7 +59,7 @@ module JQuerySyntaxHighlighter {
             
         }
         
-        static Setup($: JQueryStatic): void {
+        public static Setup($: JQueryStatic): void {
             
             Highlighter.$ = $;
             
@@ -75,14 +75,14 @@ module JQuerySyntaxHighlighter {
             
         }
         
-        static HighlightElement(element: JQuery, brush: string, config: Configuration, autoHighlight: boolean): void {
+        public static HighlightElement(element: JQuery, brush: string, config: Configuration, autoHighlight: boolean): void {
             
             var highlighter = new Highlighter($(element), brush, config, autoHighlight);
             highlighter.HighlightElement();
             
         }
         
-        HighlightElement(): void {
+        public HighlightElement(): void {
             
             var classes = this.getClasses();
             classes.unshift("brush:" + this.brush);
@@ -95,7 +95,7 @@ module JQuerySyntaxHighlighter {
             
         }
         
-        getClasses(): string[] {
+        private getClasses(): string[] {
             
             var classes: string[] = [];
             

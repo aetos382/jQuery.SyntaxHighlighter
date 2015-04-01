@@ -54,7 +54,25 @@ namespace SyntaxHighlighter
     });
   </script>
   
-  <!-- pattern 2 (amd/requirejs) -->
+  <!-- pattern 2 (global/function) -->
+  <!--
+  <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="dist/jQuery.SyntaxHighlighter.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $(".sh").each(function() {
+	      SyntaxHighlight($(this), "csharp", {
+	        autoLinks: false,
+	        highlight: [7, 8, 9, 10],
+	        toolbar: false,
+	        quickCode: false
+	      });
+      });
+    });
+  </script>
+  -->
+	
+  <!-- pattern 3 (amd/requirejs) -->
   <!--
   <script type="text/javascript" src="node_modules/requirejs/require.js"></script>
   <script type="text/javascript">
@@ -67,7 +85,7 @@ namespace SyntaxHighlighter
     
     require([
       'jquery', 'jqsh'
-    ], function ($, _) {
+    ], function ($, h) {
       $(function () {
         $(".sh").SyntaxHighlight("csharp", {
           autoLinks: false,
@@ -80,8 +98,8 @@ namespace SyntaxHighlighter
   </script>
   -->
   
-  <!-- pattern 3 (commonjs/browserify) -->
-  <!--
+  <!-- pattern 4 (commonjs/browserify) -->
+	<!--
   <script type="text/javascript" src="browserified.js"></script>
   -->
 </body>
