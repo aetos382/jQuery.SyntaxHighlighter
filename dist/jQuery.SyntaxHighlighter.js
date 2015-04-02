@@ -56,22 +56,24 @@
             Highlighter.prototype.getClasses = function () {
                 var _this = this;
                 var classes = [];
-                Highlighter.$.each(this.config, function (name, value) {
-                    var x = Highlighter.options[name];
-                    var c;
-                    if (x == undefined) {
-                        if (typeof value == 'function') {
-                            c = value(_this.element);
+                if (this.config) {
+                    Highlighter.$.each(this.config, function (name, value) {
+                        var x = Highlighter.options[name];
+                        var c;
+                        if (x == undefined) {
+                            if (typeof value === 'function') {
+                                c = value(_this.element);
+                            } else {
+                                c = name + ':' + value;
+                            }
+                        } else if (typeof x === 'function') {
+                            c = x(value);
                         } else {
-                            c = name + ':' + value;
+                            c = x + ':' + value;
                         }
-                    } else if (typeof x == 'function') {
-                        c = x(value);
-                    } else {
-                        c = x + ':' + value;
-                    }
-                    classes.push(c);
-                });
+                        classes.push(c);
+                    });
+                }
                 return classes;
             };
             Highlighter.options = {

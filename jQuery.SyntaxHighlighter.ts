@@ -50,7 +50,7 @@ module JQuerySyntaxHighlighter {
         private config: Configuration;
         private autoHighlight: boolean;
         
-        constructor(element: JQuery, brush: string, config: Configuration, autoHighlight: boolean) {
+        constructor(element: JQuery, brush: string, config?: Configuration, autoHighlight?: boolean) {
             
             this.element = element;
             this.brush = brush;
@@ -63,19 +63,15 @@ module JQuerySyntaxHighlighter {
             
             Highlighter.$ = $;
             
-            $.fn.SyntaxHighlight = function (brush: string, config: Configuration, autoHighlight: boolean): any {
-                
+            $.fn.SyntaxHighlight = function (brush: string, config?: Configuration, autoHighlight?: boolean): any {
                 return this.each((index: number, element: Element) => {
-                    
                     Highlighter.HighlightElement($(element), brush, config, autoHighlight);
-                    
                 });
-                
             };
             
         }
         
-        public static HighlightElement(element: JQuery, brush: string, config: Configuration, autoHighlight: boolean): void {
+        public static HighlightElement(element: JQuery, brush: string, config?: Configuration, autoHighlight?: boolean): void {
             
             var highlighter = new Highlighter($(element), brush, config, autoHighlight);
             highlighter.HighlightElement();
@@ -99,27 +95,29 @@ module JQuerySyntaxHighlighter {
             
             var classes: string[] = [];
             
-            Highlighter.$.each(this.config, (name: string, value: string | ((JQuery) => string)) => {
-                var x = Highlighter.options[name];
-                var c: string;
-                
-                if (x == undefined) {
-                    if (typeof value == "function") {
-                        c = (<(JQuery) => string>value)(this.element);
+            if (this.config) {
+                Highlighter.$.each(this.config, (name: string, value: string | ((JQuery) => string)) => {
+                    var x = Highlighter.options[name];
+                    var c: string;
+                    
+                    if (x == undefined) {
+                        if (typeof value === "function") {
+                            c = value(this.element);
+                        }
+                        else {
+                            c = name + ":" + value;
+                        }
+                    }
+                    else if (typeof x === "function") {
+                        c = x(value);
                     }
                     else {
-                        c = name + ":" + value;
+                        c = x + ":" + value;
                     }
-                }
-                else if (typeof x == "function") {
-                    c = x(value);
-                }
-                else {
-                    c = x + ":" + value;
-                }
-                
-                classes.push(c);
-            });
+                    
+                    classes.push(c);
+                });
+            }
             
             return classes;
         }
